@@ -118,7 +118,6 @@ export default function Sidenav() {
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
-          {/* Drawer content here */}
           <Divider />
           <List sx={{marginTop:"4rem"}}>
             <ListItem disablePadding>
