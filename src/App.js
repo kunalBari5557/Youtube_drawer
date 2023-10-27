@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Sidenav from "./Sidenav";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -11,11 +10,10 @@ function App() {
     <div>
       <BrowserRouter>
         <Sidenav />
-        <Routes>
-            <Route path="/Home" element={<Home />} />
+
+            {/* <Route path="/Home" element={<Home />} />
             <Route path="/Analytics" element={<Analytics />} />
-            <Route path="/Shorts" element={<Shorts />} />
-            </Routes>
+            <Route path="/Shorts" element={<Shorts />} /> */}
       </BrowserRouter>
     </div>
   );

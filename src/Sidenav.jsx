@@ -23,6 +23,7 @@ import { AiFillHome, AiFillVideoCamera } from "react-icons/ai";
 import { SiSimpleanalytics } from "react-icons/si";
 import Shorts from "./components/Shorts";
 import Analytics from "./components/Analytics";
+import { Link, Route, Router, Routes, useParams } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -92,9 +93,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidenav() {
-  const theme = useTheme();
   const [open, setOpen] = useState(true);
-  const [menuData, setMenuData] = useState("Home");
+  const { menuData } = useParams();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,121 +105,58 @@ export default function Sidenav() {
   };
 
   return (
-    <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          elevation={4}
-          sx={{ backgroundColor: "#ffffff", color: "#2f2f2f" }}
-        >
+        <AppBar position="fixed" elevation={4} sx={{ backgroundColor: "#ffffff", color: "#2f2f2f" }}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={() => setOpen(!open)}
-              edge="start"
-            >
+            <IconButton color="inherit" aria-label="open drawer" onClick={() => setOpen(!open)} edge="start">
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              <img src="./youtube.png" height={40} />
+              <img src="./youtube.png" height={40} alt="YouTube Logo" />
             </Typography>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
+          {/* Drawer content here */}
           <Divider />
-          <List>
-            <ListItem
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => setMenuData("Home")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
+          <List sx={{marginTop:"4rem"}}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
                   <AiFillHome />
                 </ListItemIcon>
-                {open && <ListItemText primary="Home" />}
+                <Link to="/Home" style={{ color: 'black', textDecoration: 'none' }}>Home</Link>
               </ListItemButton>
             </ListItem>
-            <ListItem
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => setMenuData("Shorts")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
                   <AiFillVideoCamera />
                 </ListItemIcon>
-                {open && <ListItemText primary="Shorts" />}
+                <Link to="/Shorts" style={{ color: 'black', textDecoration: 'none' }}>Shorts</Link>
               </ListItemButton>
             </ListItem>
           </List>
           <Divider />
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => setMenuData("Analytics")}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <SiSimpleanalytics />
-              </ListItemIcon>
-              {open && <ListItemText primary="Analytics" />}
-            </ListItemButton>
-          </ListItem>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <SiSimpleanalytics />
+                </ListItemIcon>
+                <Link to="/Analytics" style={{ color: 'black', textDecoration: 'none' }}>Analytics</Link>
+              </ListItemButton>
+            </ListItem>
+          </List>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {menuData === "Home" && <Home />}
-          {menuData === "Shorts" && <Shorts />}
-          {menuData === "Analytics" && <Analytics />}
+          <Routes>
+            <Route path="/Home" element={<Home />} />
+            <Route path="/Shorts" element={<Shorts />} />
+            <Route path="/Analytics" element={<Analytics />} />
+          </Routes>
         </Box>
       </Box>
-    </>
   );
 }
